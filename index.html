@@ -78,6 +78,18 @@
         .cart-panel.open { right: 0; box-shadow: -15px 0 60px rgba(0,0,0,0.15); }
         .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 2040; display: none; }
 
+        /* Modal Customization */
+        .product-modal .modal-content { border-radius: 40px; border: none; overflow: hidden; }
+        .modal-img-container { width: 100%; height: 350px; overflow: hidden; background: #f8f9fa; }
+        .modal-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        
+        @media (min-width: 768px) {
+            .product-modal .modal-dialog { max-width: 800px; }
+            .modal-flex-wrapper { display: flex; }
+            .modal-img-container { width: 50%; height: auto; min-height: 450px; }
+            .modal-info-container { width: 50%; display: flex; flex-direction: column; justify-content: center; }
+        }
+
         /* Responsive Mobile */
         @media (max-width: 991px) {
             .navbar-collapse { 
@@ -207,15 +219,13 @@
         </div>
     </div>
 
-
-
     <footer id="footer">
         <div class="container text-center">
             <img src="IMG_0853.PNG" class="mb-4">
             <div class="d-flex justify-content-center mb-5">
                 <a href="https://instagram.com/vegance.store" class="social-link"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
-                <a href="#" class="social-link"><i class="bi bi-github"></i></a>
+                <a href="https://www.linkedin.com/in/mohamed-hassan-972556388?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-link"><i class="bi bi-linkedin"></i></a>
+                <a href="https://github.com/mosoliman5915-max" class="social-link"><i class="bi bi-github"></i></a>
                 <a href="https://wa.me/201110804209" class="social-link"><i class="bi bi-whatsapp"></i></a>
             </div>
             <p class="opacity-50 small m-0">© 2025 VEGANCE Botanical Lab. All Rights Reserved.</p>
@@ -284,13 +294,17 @@
             const p = products.find(x => x.id === id);
             document.getElementById('modalData').innerHTML = `
                 <div class="modal-body p-0">
-                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-index-1 bg-white rounded-circle p-2" data-bs-dismiss="modal"></button>
-                    <img src="${p.img}" class="modal-product-img">
-                    <div class="p-4 text-center">
-                        <h3 class="serif fw-bold mb-2">${p.name}</h3>
-                        <p class="text-success fw-bold fs-5 mb-3">EGP ${p.price}</p>
-                        <p class="text-muted small mb-4">${p.desc}</p>
-                        <button class="btn btn-dark w-100 py-3 rounded-pill fw-bold" onclick="addToCart(${p.id}); bootstrap.Modal.getInstance(document.getElementById('productModal')).hide();">Add to Cart</button>
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-index-1 bg-white rounded-circle p-2" data-bs-dismiss="modal" style="z-index: 10;"></button>
+                    <div class="modal-flex-wrapper">
+                        <div class="modal-img-container">
+                            <img src="${p.img}">
+                        </div>
+                        <div class="modal-info-container p-4">
+                            <h3 class="serif fw-bold mb-2">${p.name}</h3>
+                            <p class="text-success fw-bold fs-4 mb-3">EGP ${p.price}</p>
+                            <p class="text-muted mb-4">${p.desc}</p>
+                            <button class="btn btn-dark w-100 py-3 rounded-pill fw-bold shadow-sm" onclick="addToCart(${p.id}); bootstrap.Modal.getInstance(document.getElementById('productModal')).hide();">Add to Cart</button>
+                        </div>
                     </div>
                 </div>
             `;
@@ -337,7 +351,6 @@
 
         window.onload = () => { fetchWeather(); renderItems(); }
         
-        // Auto-close mobile menu on click
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 const nav = document.getElementById('mainNav');
@@ -349,16 +362,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-

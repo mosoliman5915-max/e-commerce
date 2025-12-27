@@ -18,7 +18,7 @@
 
         /* Navbar Enhancement */
         .navbar { background: rgba(255,255,255,0.9) !important; backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 1040; padding: 10px 0; }
-        .navbar-brand img { height: 110px; width: 180px; transition: 0.3s; }
+        .navbar-brand img { height: 80px; width: auto; transition: 0.3s; }
         
         .nav-link { 
             color: #64748b !important; 
@@ -29,22 +29,22 @@
         }
         .nav-link:hover { color: var(--dark) !important; }
 
-        /* Hero */
+        /* Hero Section Fixes */
         #home { 
-            height: 95vh; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('Extra post 1.png');
-            background-size: cover; background-position: center; color: white; text-align: center; width: 100%;
+            min-height: 100vh; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('Extra post 1.png');
+            background-size: cover; background-position: center; background-repeat: no-repeat; color: white; text-align: center; width: 100%;
         }
 
         .weather-badge {
-            background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 12px 25px;
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 8px 20px;
             border-radius: 50px; border: 1px solid rgba(255,255,255,0.2); display: inline-flex;
-            align-items: center; gap: 10px; margin-bottom: 25px;
+            align-items: center; gap: 10px; margin-bottom: 25px; font-size: 0.9rem;
         }
 
         /* Categories */
         .cat-btn {
-            border: 1px solid #ddd; background: #fff; padding: 10px 24px;
+            border: 1px solid #ddd; background: #fff; padding: 8px 20px;
             border-radius: 50px; font-weight: 600; cursor: pointer; transition: 0.3s; margin: 5px; white-space: nowrap;
         }
         .cat-btn.active { background: var(--dark); color: white; border-color: var(--dark); box-shadow: 0 5px 15px rgba(6, 78, 59, 0.2); }
@@ -65,19 +65,6 @@
             font-weight: 800; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        /* Swiper */
-        .swiper-pagination-bullet-active { width: 25px; border-radius: 10px; background: var(--accent) !important; }
-        .swiper-pagination { position: relative; margin-top: 30px !important; }
-
-        /* Cart Panel */
-        .cart-panel {
-            position: fixed; top: 0; right: -100%; width: 420px; height: 100vh;
-            background: #fff; z-index: 2050; transition: 0.6s cubic-bezier(0.7, 0, 0.3, 1);
-            padding: 30px; display: flex; flex-direction: column;
-        }
-        .cart-panel.open { right: 0; box-shadow: -15px 0 60px rgba(0,0,0,0.15); }
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 2040; display: none; }
-
         /* Modal Customization */
         .product-modal .modal-content { border-radius: 40px; border: none; overflow: hidden; }
         .modal-img-container { width: 100%; height: 350px; overflow: hidden; background: #f8f9fa; }
@@ -90,29 +77,40 @@
             .modal-info-container { width: 50%; display: flex; flex-direction: column; justify-content: center; }
         }
 
-        /* Responsive Mobile */
+        /* Cart Panel */
+        .cart-panel {
+            position: fixed; top: 0; right: -100%; width: 420px; height: 100vh;
+            background: #fff; z-index: 2050; transition: 0.6s cubic-bezier(0.7, 0, 0.3, 1);
+            padding: 30px; display: flex; flex-direction: column;
+        }
+        .cart-panel.open { right: 0; box-shadow: -15px 0 60px rgba(0,0,0,0.15); }
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 2040; display: none; }
+
+        /* Responsive Mobile Fixes */
         @media (max-width: 991px) {
+            .navbar-brand img { height: 60px; }
             .navbar-collapse { 
                 background: white; margin-top: 15px; border-radius: 20px; padding: 20px; 
                 box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             }
-            .navbar-brand img { height:100px;width: 150px; }
+            #tempVal { font-size: 0.8rem; display: block !important; }
         }
 
         @media (max-width: 700px) { 
             .cart-panel { width: 100%; } 
-            .display-1 { font-size: 2.8rem !important; } 
-            #footer img { height: 120px; width: 190px; }
+            .display-1 { font-size: 2.5rem !important; margin-top: 20px; } 
+            #footer img { height: 80px; width: auto; }
+            .weather-badge { padding: 6px 15px; font-size: 0.8rem; }
         }
 
         footer { background: #031a14; color: white; padding: 70px 0 40px; border-radius: 60px 60px 0 0; margin-top: 50px; }
         .social-link { 
-            width: 50px; height: 50px; background: rgba(255,255,255,0.08); border-radius: 50%; 
+            width: 45px; height: 45px; background: rgba(255,255,255,0.08); border-radius: 50%; 
             display: inline-flex; align-items: center; justify-content: center; color: white; 
-            text-decoration: none; margin: 0 8px; transition: 0.4s;
+            text-decoration: none; margin: 0 5px; transition: 0.4s;
         }
         .social-link:hover { background: var(--accent); transform: translateY(-5px); }
-        #footer img { filter: brightness(0) invert(1); height: 90px; width: 150px;}
+        #footer img { filter: brightness(0) invert(1); height: 80px; }
     </style>
 </head>
 <body>
@@ -124,7 +122,7 @@
             <a class="navbar-brand" href="#home"><img src="IMG_0853.PNG"></a>
             
             <div class="d-flex align-items-center gap-2 order-lg-last">
-                <div id="tempVal" class="small fw-bold text-success d-none d-md-block me-2"></div>
+                <div id="tempVal" class="small fw-bold text-success me-2">--°C</div>
                 <button class="btn btn-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2" onclick="toggleCart()">
                     <i class="bi bi-bag-heart-fill"></i>
                     <span id="cartCount" class="badge bg-success">0</span>
@@ -223,10 +221,10 @@
         <div class="container text-center">
             <img src="IMG_0853.PNG" class="mb-4">
             <div class="d-flex justify-content-center mb-5">
-                <a href="https://www.instagram.com/mohamed_hassan543?igsh=MTc2M2Jlc3lnNzZ4eA==" class="social-link"><i class="bi bi-instagram"></i></a>
+                <a href="https://instagram.com/vegance.store" class="social-link"><i class="bi bi-instagram"></i></a>
                 <a href="https://www.linkedin.com/in/mohamed-hassan-972556388?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-link"><i class="bi bi-linkedin"></i></a>
                 <a href="https://github.com/mosoliman5915-max" class="social-link"><i class="bi bi-github"></i></a>
-                <a href="https://wa.me/01064950557" class="social-link"><i class="bi bi-whatsapp"></i></a>
+                <a href="https://wa.me/201110804209" class="social-link"><i class="bi bi-whatsapp"></i></a>
             </div>
             <p class="opacity-50 small m-0">© 2025 VEGANCE Botanical Lab. All Rights Reserved.</p>
         </div>
@@ -243,10 +241,13 @@
             try {
                 const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=30.04&longitude=31.23&current_weather=true');
                 const data = await res.json();
-                const temp = data.current_weather.temperature;
+                const temp = Math.round(data.current_weather.temperature);
                 document.getElementById('tempVal').innerText = `${temp}°C`;
                 document.getElementById('weatherAdvice').innerText = temp > 25 ? "Warm day! Hydrate with our Mist." : "Cool breeze! Protect with our Serums.";
-            } catch (e) { document.getElementById('weatherAdvice').innerText = "Pure Nature. Pure You."; }
+            } catch (e) { 
+                document.getElementById('tempVal').innerText = "22°C";
+                document.getElementById('weatherAdvice').innerText = "Pure Nature. Pure You."; 
+            }
         }
 
         const products = [
@@ -361,5 +362,4 @@
         });
     </script>
 </body>
-
 </html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <title>VEGANCE | Luxury Botanical Lab</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --accent: #059669; --dark: #064e3b; --light: #f0fdf4; }
+        
+        html, body { max-width: 100%; overflow-x: hidden; margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: var(--light); color: var(--dark); scroll-behavior: smooth; }
+
+        /* Navbar Enhancement */
+        .navbar { background: rgba(255,255,255,0.9) !important; backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 1040; padding: 10px 0; }
+        .navbar-brand img { height: 110px; width: 180px; transition: 0.3s; }
+        
+        .nav-link { 
+            color: #64748b !important; 
+            font-weight: 600; 
+            font-size: 0.9rem; 
+            padding: 10px 15px !important;
+            transition: 0.3s;
+        }
+        .nav-link:hover { color: var(--dark) !important; }
+
+        /* Hero */
+        #home { 
+            height: 95vh; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('Extra post 1.png');
+            background-size: cover; background-position: center; color: white; text-align: center; width: 100%;
+        }
+
+        .weather-badge {
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 12px 25px;
+            border-radius: 50px; border: 1px solid rgba(255,255,255,0.2); display: inline-flex;
+            align-items: center; gap: 10px; margin-bottom: 25px;
+        }
+
+        /* Categories */
+        .cat-btn {
+            border: 1px solid #ddd; background: #fff; padding: 10px 24px;
+            border-radius: 50px; font-weight: 600; cursor: pointer; transition: 0.3s; margin: 5px; white-space: nowrap;
+        }
+        .cat-btn.active { background: var(--dark); color: white; border-color: var(--dark); box-shadow: 0 5px 15px rgba(6, 78, 59, 0.2); }
+
+        /* Product Cards */
+        .product-card { 
+            background: #fff; border-radius: 35px; overflow: hidden; border: none;
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); height: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            cursor: pointer; position: relative;
+        }
+        .product-card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .card-img-wrapper { height: 280px; overflow: hidden; position: relative; }
+        .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+        .view-label {
+            position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.9);
+            color: var(--dark); padding: 5px 12px; border-radius: 50px; font-size: 0.65rem;
+            font-weight: 800; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Swiper */
+        .swiper-pagination-bullet-active { width: 25px; border-radius: 10px; background: var(--accent) !important; }
+        .swiper-pagination { position: relative; margin-top: 30px !important; }
+
+        /* Cart Panel */
+        .cart-panel {
+            position: fixed; top: 0; right: -100%; width: 420px; height: 100vh;
+            background: #fff; z-index: 2050; transition: 0.6s cubic-bezier(0.7, 0, 0.3, 1);
+            padding: 30px; display: flex; flex-direction: column;
+        }
+        .cart-panel.open { right: 0; box-shadow: -15px 0 60px rgba(0,0,0,0.15); }
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 2040; display: none; }
+
+        /* Responsive Mobile */
+        @media (max-width: 991px) {
+            .navbar-collapse { 
+                background: white; margin-top: 15px; border-radius: 20px; padding: 20px; 
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .navbar-brand img { height:100px;width: 150px; }
+        }
+
+        @media (max-width: 700px) { 
+            .cart-panel { width: 100%; } 
+            .display-1 { font-size: 2.8rem !important; } 
+            #footer img { height: 120px; width: 190px; }
+        }
+
+        footer { background: #031a14; color: white; padding: 70px 0 40px; border-radius: 60px 60px 0 0; margin-top: 50px; }
+        .social-link { 
+            width: 50px; height: 50px; background: rgba(255,255,255,0.08); border-radius: 50%; 
+            display: inline-flex; align-items: center; justify-content: center; color: white; 
+            text-decoration: none; margin: 0 8px; transition: 0.4s;
+        }
+        .social-link:hover { background: var(--accent); transform: translateY(-5px); }
+        #footer img { filter: brightness(0) invert(1); height: 90px; width: 150px;}
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="mainOverlay" onclick="toggleCart()"></div>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home"><img src="IMG_0853.PNG"></a>
+            
+            <div class="d-flex align-items-center gap-2 order-lg-last">
+                <div id="tempVal" class="small fw-bold text-success d-none d-md-block me-2"></div>
+                <button class="btn btn-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2" onclick="toggleCart()">
+                    <i class="bi bi-bag-heart-fill"></i>
+                    <span id="cartCount" class="badge bg-success">0</span>
+                </button>
+                <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                    <i class="bi bi-list fs-2"></i>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse justify-content-center" id="mainNav">
+                <ul class="navbar-nav gap-2">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#shop">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#footer">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home">
+        <div class="container px-4" data-aos="fade-up">
+            <div class="weather-badge">
+                <i class="bi bi-stars"></i>
+                <span id="weatherAdvice">Detecting your environment...</span>
+            </div>
+            <h1 class="display-1 serif fw-bold mb-3">Nature's Secret <br> Formula</h1>
+            <p class="fs-5 opacity-90 mb-5 mx-auto" style="max-width: 600px;">Luxury botanical science crafted for your unique skin glow.</p>
+            <a href="#shop" class="btn btn-light btn-lg rounded-pill px-5 py-3 fw-bold">Explore Lab</a>
+        </div>
+    </header>
+
+    <section id="shop" class="py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="serif display-5 fw-bold mb-4">The Collection</h2>
+                <div class="d-flex justify-content-start justify-content-md-center overflow-auto pb-3 gap-2 px-2">
+                    <button class="cat-btn active" onclick="filterBy('All', this)">All Rituals</button>
+                    <button class="cat-btn" onclick="filterBy('Face', this)">Face Cleaners</button>
+                    <button class="cat-btn" onclick="filterBy('serums', this)">Serums</button>
+                    <button class="cat-btn" onclick="filterBy('Body', this)">Body Glow</button>
+                </div>
+            </div>
+            <div class="swiper productSwiper">
+                <div class="swiper-wrapper" id="sliderWrapper"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-5 bg-white overflow-hidden">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="position-relative p-4">
+                        <img src="Extra post 3.png" class="img-fluid rounded-5 shadow-2xl">
+                    </div>
+                </div>
+                <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
+                    <span class="text-success fw-bold text-uppercase mb-3 d-block">The Genesis</span>
+                    <h2 class="serif display-4 fw-bold mb-4">Born from the Earth, <br> <span class="italic">Refined by Science.</span></h2>
+                    <p class="text-muted fs-5 leading-relaxed mb-4">We merge organic botanicals with the latest breakthroughs to create a ritual that honors your skin.</p>
+                    <div class="d-flex gap-4 border-top pt-4">
+                        <div class="text-center"><h3 class="fw-bold mb-0">100%</h3><small class="text-muted">Organic</small></div>
+                        <div class="text-center border-start ps-4"><h3 class="fw-bold mb-0">40+</h3><small class="text-muted">Formulas</small></div>
+                        <div class="text-center border-start ps-4"><h3 class="fw-bold mb-0">ITI</h3><small class="text-muted">Certified</small></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="cart-panel" id="cartPanel">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="serif fw-bold m-0">Your Bag</h3>
+            <button class="btn-close shadow-none" onclick="toggleCart()"></button>
+        </div>
+        <div id="cartContent" style="flex-grow: 1; overflow-y: auto;"></div>
+        <div class="pt-4 border-top">
+            <div class="d-flex justify-content-between fs-4 fw-bold mb-4">
+                <span>Total:</span><span class="text-success">EGP <span id="cartTotal">0</span></span>
+            </div>
+            <input type="text" id="custName" class="form-control rounded-pill mb-2 p-3 bg-light border-0" placeholder="Full Name">
+            <input type="text" id="custPhone" class="form-control rounded-pill mb-3 p-3 bg-light border-0" placeholder="WhatsApp Number">
+            <button class="btn btn-dark w-100 py-3 rounded-pill fw-bold" onclick="checkout()">PLACE ORDER VIA WHATSAPP 🌿</button>
+        </div>
+    </div>
+
+    <div class="modal fade product-modal" id="productModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" id="modalData"></div>
+        </div>
+    </div>
+
+
+
+    <footer id="footer">
+        <div class="container text-center">
+            <img src="IMG_0853.PNG" class="mb-4">
+            <div class="d-flex justify-content-center mb-5">
+                <a href="https://instagram.com/vegance.store" class="social-link"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+                <a href="#" class="social-link"><i class="bi bi-github"></i></a>
+                <a href="https://wa.me/201110804209" class="social-link"><i class="bi bi-whatsapp"></i></a>
+            </div>
+            <p class="opacity-50 small m-0">© 2025 VEGANCE Botanical Lab. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        async function fetchWeather() {
+            try {
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=30.04&longitude=31.23&current_weather=true');
+                const data = await res.json();
+                const temp = data.current_weather.temperature;
+                document.getElementById('tempVal').innerText = `${temp}°C`;
+                document.getElementById('weatherAdvice').innerText = temp > 25 ? "Warm day! Hydrate with our Mist." : "Cool breeze! Protect with our Serums.";
+            } catch (e) { document.getElementById('weatherAdvice').innerText = "Pure Nature. Pure You."; }
+        }
+
+        const products = [
+            { id: 1, cat: "Face", name: "Elixir Gold Cleaner", price: 450, img: "product 1.JPEG", desc: "Our signature gold cleaner formulated with botanical extracts." },
+            { id: 2, cat: "Face", name: "Aqua-Night Cleaner", price: 520, img: "product 2.JPEG", desc: "The ultimate night ritual for sensitive skin." },
+            { id: 3, cat: "Face", name: "Root Revival Cleaner", price: 380, img: "product 3.JPEG", desc: "Revive your skin from the roots." },
+            { id: 4, cat: "Face", name: "Botanical Toner", price: 290, img: "product 4.JPEG", desc: "Balancing and refreshing toner." },
+            { id: 7, cat: "serums", name: "Elixir Gold Serum", price: 450, img: "product 7.JPEG", desc: "A concentrated blend of pure oils." },
+            { id: 8, cat: "serums", name: "Youth Serum", price: 130, img: "product 8.JPEG", desc: "Lightweight and powerful." },
+            { id: 11, cat: "serums", name: "Mega Serum Lab", price: 2800, img: "product 11.JPEG", desc: "Our exclusive lab-grade mega serum." },
+            { id: 12, cat: "Body", name: "Body Glow Oil", price: 420, img: "product 12.JPEG", desc: "Non-greasy, fast-absorbing oil." },
+            { id: 14, cat: "Body", name: "Pure Scrub", price: 150, img: "product 14.JPEG", desc: "Exfoliate naturally with botanical seeds." }
+        ];
+
+        let swiper;
+        function renderItems(filter = "All") {
+            const container = document.getElementById('sliderWrapper');
+            const data = filter === "All" ? products : products.filter(p => p.cat === filter);
+            container.innerHTML = data.map(p => `
+                <div class="swiper-slide p-2">
+                    <div class="product-card" onclick="openProduct(${p.id})">
+                        <div class="card-img-wrapper">
+                            <span class="view-label">VIEW DETAILS</span>
+                            <img src="${p.img}" loading="lazy">
+                        </div>
+                        <div class="p-4 text-center">
+                            <h6 class="fw-bold mb-1">${p.name}</h6>
+                            <p class="text-success small fw-bold mb-3">EGP ${p.price}</p>
+                            <button class="btn btn-dark btn-sm w-100 rounded-pill py-2" onclick="event.stopPropagation(); addToCart(${p.id})">Add to Bag</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            if(swiper) swiper.destroy();
+            swiper = new Swiper(".productSwiper", {
+                slidesPerView: 1.3, spaceBetween: 15,
+                breakpoints: { 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } },
+                pagination: { el: ".swiper-pagination", clickable: true },
+                autoplay: { delay: 4000 }
+            });
+        }
+
+        function openProduct(id) {
+            const p = products.find(x => x.id === id);
+            document.getElementById('modalData').innerHTML = `
+                <div class="modal-body p-0">
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-index-1 bg-white rounded-circle p-2" data-bs-dismiss="modal"></button>
+                    <img src="${p.img}" class="modal-product-img">
+                    <div class="p-4 text-center">
+                        <h3 class="serif fw-bold mb-2">${p.name}</h3>
+                        <p class="text-success fw-bold fs-5 mb-3">EGP ${p.price}</p>
+                        <p class="text-muted small mb-4">${p.desc}</p>
+                        <button class="btn btn-dark w-100 py-3 rounded-pill fw-bold" onclick="addToCart(${p.id}); bootstrap.Modal.getInstance(document.getElementById('productModal')).hide();">Add to Cart</button>
+                    </div>
+                </div>
+            `;
+            new bootstrap.Modal(document.getElementById('productModal')).show();
+        }
+
+        function filterBy(c, b) {
+            document.querySelectorAll('.cat-btn').forEach(x => x.classList.remove('active'));
+            b.classList.add('active'); renderItems(c);
+        }
+
+        let cart = [];
+        function toggleCart() {
+            const p = document.getElementById('cartPanel'), o = document.getElementById('mainOverlay');
+            p.classList.toggle('open');
+            o.style.display = p.classList.contains('open') ? 'block' : 'none';
+        }
+
+        function addToCart(id) {
+            cart.push(products.find(x => x.id === id));
+            updateUI();
+            if(!document.getElementById('cartPanel').classList.contains('open')) toggleCart();
+        }
+
+        function updateUI() {
+            document.getElementById('cartCount').innerText = cart.length;
+            let total = 0;
+            document.getElementById('cartContent').innerHTML = cart.map((item, i) => {
+                total += item.price;
+                return `<div class="d-flex align-items-center gap-3 mb-3 p-3 bg-light rounded-4">
+                    <img src="${item.img}" style="width:50px; height:50px; object-fit:cover;" class="rounded-circle border">
+                    <div class="flex-grow-1 small fw-bold">${item.name}</div>
+                    <i class="bi bi-trash3 text-danger" onclick="cart.splice(${i},1);updateUI()"></i>
+                </div>`;
+            }).join('');
+            document.getElementById('cartTotal').innerText = total;
+        }
+
+        function checkout() {
+            const n = document.getElementById('custName').value, ph = document.getElementById('custPhone').value;
+            if(!n || !ph || cart.length === 0) return alert("Fill details!");
+            window.open(`https://wa.me/201110804209?text=Order From: ${n}%0APhone: ${ph}%0ATotal: ${document.getElementById('cartTotal').innerText}`);
+        }
+
+        window.onload = () => { fetchWeather(); renderItems(); }
+        
+        // Auto-close mobile menu on click
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const nav = document.getElementById('mainNav');
+                if(nav.classList.contains('show')) {
+                    new bootstrap.Collapse(nav).hide();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

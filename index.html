@@ -86,13 +86,19 @@
         .about-img-main { border-radius: 40px; width: 90%; position: relative; z-index: 2; box-shadow: 20px 20px 60px rgba(0,0,0,0.1); }
         .about-img-sub { position: absolute; bottom: -10px; right: 0; width: 60%; border-radius: 30px; border: 8px solid #fff; z-index: 3; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
 
-        /* Cart Panel */
+        /* --- Cart Panel Responsive Adjustment --- */
         .cart-panel { 
-            position: fixed; top: 0; right: -100%; width: 420px; height: 100vh; 
+            position: fixed; top: 0; right: -110%; width: 420px; height: 100vh; 
             background: #fff; z-index: 2050; transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); 
             padding: 30px; display: flex; flex-direction: column; 
         }
         .cart-panel.open { right: 0; box-shadow: -15px 0 60px rgba(0,0,0,0.15); }
+        
+        /* Mobile Cart Full Width */
+        @media (max-width: 500px) {
+            .cart-panel { width: 100%; padding: 20px; }
+        }
+
         .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 2040; display: none; }
 
         footer { background: #031a14; color: white; padding: 70px 0 40px; border-radius: 60px 60px 0 0; margin-top: 50px; }

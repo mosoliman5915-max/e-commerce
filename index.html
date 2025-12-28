@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
     <title>VEGANCE | Luxury Botanical Lab</title>
     
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -14,62 +17,44 @@
     <style>
         :root { --accent: #059669; --dark: #064e3b; --light: #f0fdf4; }
         
+        /* تحسين سلاسة الحركة */
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         html, body { max-width: 100%; overflow-x: hidden; margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: var(--light); color: var(--dark); scroll-behavior: smooth; }
 
-        /* Navbar Enhancement */
         .navbar { background: rgba(255,255,255,0.9) !important; backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 1040; padding: 10px 0; }
         .navbar-brand img { height: 80px; width: auto; transition: 0.3s; }
         
-        .nav-link { 
-            color: #64748b !important; 
-            font-weight: 600; 
-            font-size: 0.9rem; 
-            padding: 10px 15px !important;
-            transition: 0.3s;
-        }
-        .nav-link:hover { color: var(--dark) !important; }
+        .nav-link { color: #64748b !important; font-weight: 600; font-size: 0.9rem; padding: 10px 15px !important; transition: 0.3s; }
 
-        /* Hero Section Fixes */
         #home { 
             min-height: 100vh; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
             background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('Extra post 1.png');
-            background-size: cover; background-position: center; background-repeat: no-repeat; color: white; text-align: center; width: 100%;
+            background-size: cover; background-position: center; color: white; text-align: center; width: 100%;
+            /* تحسين سرعة ظهور الخلفية */
+            background-color: #031a14;
         }
 
         .weather-badge {
             background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 8px 20px;
             border-radius: 50px; border: 1px solid rgba(255,255,255,0.2); display: inline-flex;
-            align-items: center; gap: 10px; margin-bottom: 25px; font-size: 0.9rem;
+            align-items: center; gap: 10px; margin-bottom: 25px;
         }
 
-        /* Categories */
-        .cat-btn {
-            border: 1px solid #ddd; background: #fff; padding: 8px 20px;
-            border-radius: 50px; font-weight: 600; cursor: pointer; transition: 0.3s; margin: 5px; white-space: nowrap;
-        }
-        .cat-btn.active { background: var(--dark); color: white; border-color: var(--dark); box-shadow: 0 5px 15px rgba(6, 78, 59, 0.2); }
+        .cat-btn { border: 1px solid #ddd; background: #fff; padding: 8px 20px; border-radius: 50px; font-weight: 600; cursor: pointer; transition: 0.3s; margin: 5px; white-space: nowrap; }
+        .cat-btn.active { background: var(--dark); color: white; border-color: var(--dark); }
 
-        /* Product Cards */
-        .product-card { 
-            background: #fff; border-radius: 35px; overflow: hidden; border: none;
-            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); height: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            cursor: pointer; position: relative;
-        }
-        .product-card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .card-img-wrapper { height: 280px; overflow: hidden; position: relative; }
-        .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        .product-card { background: #fff; border-radius: 35px; overflow: hidden; transition: 0.4s ease; height: 100%; cursor: pointer; position: relative; border: 1px solid transparent; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); border-color: var(--accent); }
+        .card-img-wrapper { height: 280px; overflow: hidden; background: #eee; }
+        .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
 
-        .view-label {
-            position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.9);
-            color: var(--dark); padding: 5px 12px; border-radius: 50px; font-size: 0.65rem;
-            font-weight: 800; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
+        /* Cart & Panels */
+        .cart-panel { position: fixed; top: 0; right: -100%; width: 420px; height: 100vh; background: #fff; z-index: 2050; transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); padding: 30px; display: flex; flex-direction: column; }
+        .cart-panel.open { right: 0; box-shadow: -15px 0 60px rgba(0,0,0,0.15); }
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 2040; display: none; }
 
-        /* Modal Customization */
-        .product-modal .modal-content { border-radius: 40px; border: none; overflow: hidden; }
-        .modal-img-container { width: 100%; height: 350px; overflow: hidden; background: #f8f9fa; }
-        .modal-img-container img { width: 100%; height: 100%; object-fit: cover; }
-        
+
+   
         @media (min-width: 768px) {
             .product-modal .modal-dialog { max-width: 800px; }
             .modal-flex-wrapper { display: flex; }
@@ -88,7 +73,7 @@
 
         /* Responsive Mobile Fixes */
         @media (max-width: 991px) {
-            .navbar-brand img { height: 60px; }
+            .navbar-brand img { height: 90px; width: 150; }
             .navbar-collapse { 
                 background: white; margin-top: 15px; border-radius: 20px; padding: 20px; 
                 box-shadow: 0 10px 30px rgba(0,0,0,0.1);
@@ -99,7 +84,7 @@
         @media (max-width: 700px) { 
             .cart-panel { width: 100%; } 
             .display-1 { font-size: 2.5rem !important; margin-top: 20px; } 
-            #footer img { height: 80px; width: auto; }
+            #footer img { height: 90px; width: 130px; }
             .weather-badge { padding: 6px 15px; font-size: 0.8rem; }
         }
 
@@ -111,6 +96,8 @@
         }
         .social-link:hover { background: var(--accent); transform: translateY(-5px); }
         #footer img { filter: brightness(0) invert(1); height: 80px; }
+
+
     </style>
 </head>
 <body>
@@ -119,8 +106,7 @@
 
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#home"><img src="IMG_0853.PNG"></a>
-            
+            <a class="navbar-brand" href="#home"><img src="IMG_0853.PNG" alt="Vegance Logo"></a>
             <div class="d-flex align-items-center gap-2 order-lg-last">
                 <div id="tempVal" class="small fw-bold text-success me-2">--°C</div>
                 <button class="btn btn-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2" onclick="toggleCart()">
@@ -131,7 +117,6 @@
                     <i class="bi bi-list fs-2"></i>
                 </button>
             </div>
-
             <div class="collapse navbar-collapse justify-content-center" id="mainNav">
                 <ul class="navbar-nav gap-2">
                     <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
@@ -147,7 +132,7 @@
         <div class="container px-4" data-aos="fade-up">
             <div class="weather-badge">
                 <i class="bi bi-stars"></i>
-                <span id="weatherAdvice">Detecting your environment...</span>
+                <span id="weatherAdvice">Checking environment...</span>
             </div>
             <h1 class="display-1 serif fw-bold mb-3">Nature's Secret <br> Formula</h1>
             <p class="fs-5 opacity-90 mb-5 mx-auto" style="max-width: 600px;">Luxury botanical science crafted for your unique skin glow.</p>
@@ -161,9 +146,9 @@
                 <h2 class="serif display-5 fw-bold mb-4">The Collection</h2>
                 <div class="d-flex justify-content-start justify-content-md-center overflow-auto pb-3 gap-2 px-2">
                     <button class="cat-btn active" onclick="filterBy('All', this)">All Rituals</button>
-                    <button class="cat-btn" onclick="filterBy('Face', this)">Face Cleaners</button>
+                    <button class="cat-btn" onclick="filterBy('Face', this)">Face</button>
                     <button class="cat-btn" onclick="filterBy('serums', this)">Serums</button>
-                    <button class="cat-btn" onclick="filterBy('Body', this)">Body Glow</button>
+                    <button class="cat-btn" onclick="filterBy('Body', this)">Body</button>
                 </div>
             </div>
             <div class="swiper productSwiper">
@@ -177,19 +162,12 @@
         <div class="container py-5">
             <div class="row align-items-center">
                 <div class="col-lg-6" data-aos="fade-right">
-                    <div class="position-relative p-4">
-                        <img src="Extra post 3.png" class="img-fluid rounded-5 shadow-2xl">
-                    </div>
+                    <img src="Extra post 3.png" class="img-fluid rounded-5 shadow-lg" loading="lazy">
                 </div>
                 <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
                     <span class="text-success fw-bold text-uppercase mb-3 d-block">The Genesis</span>
-                    <h2 class="serif display-4 fw-bold mb-4">Born from the Earth, <br> <span class="italic">Refined by Science.</span></h2>
-                    <p class="text-muted fs-5 leading-relaxed mb-4">We merge organic botanicals with the latest breakthroughs to create a ritual that honors your skin.</p>
-                    <div class="d-flex gap-4 border-top pt-4">
-                        <div class="text-center"><h3 class="fw-bold mb-0">100%</h3><small class="text-muted">Organic</small></div>
-                        <div class="text-center border-start ps-4"><h3 class="fw-bold mb-0">40+</h3><small class="text-muted">Formulas</small></div>
-                        <div class="text-center border-start ps-4"><h3 class="fw-bold mb-0">ITI</h3><small class="text-muted">Certified</small></div>
-                    </div>
+                    <h2 class="serif display-4 fw-bold mb-4">Refined by Science.</h2>
+                    <p class="text-muted fs-5 mb-4">We merge organic botanicals with breakthroughs to honor your skin.</p>
                 </div>
             </div>
         </div>
@@ -207,7 +185,7 @@
             </div>
             <input type="text" id="custName" class="form-control rounded-pill mb-2 p-3 bg-light border-0" placeholder="Full Name">
             <input type="text" id="custPhone" class="form-control rounded-pill mb-3 p-3 bg-light border-0" placeholder="WhatsApp Number">
-            <button class="btn btn-dark w-100 py-3 rounded-pill fw-bold" onclick="checkout()">PLACE ORDER VIA WHATSAPP 🌿</button>
+            <button class="btn btn-dark w-100 py-3 rounded-pill fw-bold" onclick="checkout()">ORDER VIA WHATSAPP 🌿</button>
         </div>
     </div>
 
@@ -216,6 +194,8 @@
             <div class="modal-content" id="modalData"></div>
         </div>
     </div>
+
+    
 
     <footer id="footer">
         <div class="container text-center">
@@ -235,15 +215,19 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
-        AOS.init({ duration: 1000, once: true });
+        AOS.init({ duration: 800, once: true });
 
+        // Optimize Weather Fetch with Timeout
         async function fetchWeather() {
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), 5000);
             try {
-                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=30.04&longitude=31.23&current_weather=true');
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=30.04&longitude=31.23&current_weather=true', { signal: controller.signal });
                 const data = await res.json();
                 const temp = Math.round(data.current_weather.temperature);
                 document.getElementById('tempVal').innerText = `${temp}°C`;
                 document.getElementById('weatherAdvice').innerText = temp > 25 ? "Warm day! Hydrate with our Mist." : "Cool breeze! Protect with our Serums.";
+                clearTimeout(id);
             } catch (e) { 
                 document.getElementById('tempVal').innerText = "22°C";
                 document.getElementById('weatherAdvice').innerText = "Pure Nature. Pure You."; 
@@ -251,15 +235,15 @@
         }
 
         const products = [
-            { id: 1, cat: "Face", name: "Elixir Gold Cleaner", price: 450, img: "product 1.JPEG", desc: "Our signature gold cleaner formulated with botanical extracts." },
-            { id: 2, cat: "Face", name: "Aqua-Night Cleaner", price: 520, img: "product 2.JPEG", desc: "The ultimate night ritual for sensitive skin." },
-            { id: 3, cat: "Face", name: "Root Revival Cleaner", price: 380, img: "product 3.JPEG", desc: "Revive your skin from the roots." },
-            { id: 4, cat: "Face", name: "Botanical Toner", price: 290, img: "product 4.JPEG", desc: "Balancing and refreshing toner." },
-            { id: 7, cat: "serums", name: "Elixir Gold Serum", price: 450, img: "product 7.JPEG", desc: "A concentrated blend of pure oils." },
-            { id: 8, cat: "serums", name: "Youth Serum", price: 130, img: "product 8.JPEG", desc: "Lightweight and powerful." },
-            { id: 11, cat: "serums", name: "Mega Serum Lab", price: 2800, img: "product 11.JPEG", desc: "Our exclusive lab-grade mega serum." },
-            { id: 12, cat: "Body", name: "Body Glow Oil", price: 420, img: "product 12.JPEG", desc: "Non-greasy, fast-absorbing oil." },
-            { id: 14, cat: "Body", name: "Pure Scrub", price: 150, img: "product 14.JPEG", desc: "Exfoliate naturally with botanical seeds." }
+            { id: 1, cat: "Face", name: "Elixir Gold Cleaner", price: 450, img: "product 1.JPEG", desc: "Our signature gold cleaner." },
+            { id: 2, cat: "Face", name: "Aqua-Night Cleaner", price: 520, img: "product 2.JPEG", desc: "Night ritual for sensitive skin." },
+            { id: 3, cat: "Face", name: "Root Revival Cleaner", price: 380, img: "product 3.JPEG", desc: "Revive skin from roots." },
+            { id: 4, cat: "Face", name: "Botanical Toner", price: 290, img: "product 4.JPEG", desc: "Balancing and refreshing." },
+            { id: 7, cat: "serums", name: "Elixir Gold Serum", price: 450, img: "product 7.JPEG", desc: "Pure oil blend." },
+            { id: 8, cat: "serums", name: "Youth Serum", price: 130, img: "product 8.JPEG", desc: "Light and powerful." },
+            { id: 11, cat: "serums", name: "Mega Serum Lab", price: 2800, img: "product 11.JPEG", desc: "Lab-grade mega serum." },
+            { id: 12, cat: "Body", name: "Body Glow Oil", price: 420, img: "product 12.JPEG", desc: "Non-greasy body oil." },
+            { id: 14, cat: "Body", name: "Pure Scrub", price: 150, img: "product 14.JPEG", desc: "Botanical seed scrub." }
         ];
 
         let swiper;
@@ -270,8 +254,7 @@
                 <div class="swiper-slide p-2">
                     <div class="product-card" onclick="openProduct(${p.id})">
                         <div class="card-img-wrapper">
-                            <span class="view-label">VIEW DETAILS</span>
-                            <img src="${p.img}" loading="lazy">
+                            <img src="${p.img}" loading="lazy" alt="${p.name}">
                         </div>
                         <div class="p-4 text-center">
                             <h6 class="fw-bold mb-1">${p.name}</h6>
@@ -287,28 +270,26 @@
                 slidesPerView: 1.3, spaceBetween: 15,
                 breakpoints: { 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } },
                 pagination: { el: ".swiper-pagination", clickable: true },
-                autoplay: { delay: 4000 }
+                autoplay: { delay: 5000 }
             });
         }
 
+        // ... بقية دوال الـ Cart والـ Checkout (نفس المنطق السابق) ...
         function openProduct(id) {
             const p = products.find(x => x.id === id);
             document.getElementById('modalData').innerHTML = `
                 <div class="modal-body p-0">
-                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-index-1 bg-white rounded-circle p-2" data-bs-dismiss="modal" style="z-index: 10;"></button>
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" style="z-index:10"></button>
                     <div class="modal-flex-wrapper">
-                        <div class="modal-img-container">
-                            <img src="${p.img}">
-                        </div>
+                        <div class="modal-img-container"><img src="${p.img}"></div>
                         <div class="modal-info-container p-4">
-                            <h3 class="serif fw-bold mb-2">${p.name}</h3>
-                            <p class="text-success fw-bold fs-4 mb-3">EGP ${p.price}</p>
-                            <p class="text-muted mb-4">${p.desc}</p>
-                            <button class="btn btn-dark w-100 py-3 rounded-pill fw-bold shadow-sm" onclick="addToCart(${p.id}); bootstrap.Modal.getInstance(document.getElementById('productModal')).hide();">Add to Cart</button>
+                            <h3 class="serif fw-bold">${p.name}</h3>
+                            <p class="text-success fw-bold">EGP ${p.price}</p>
+                            <p class="text-muted small">${p.desc}</p>
+                            <button class="btn btn-dark w-100 py-3 rounded-pill" onclick="addToCart(${p.id}); bootstrap.Modal.getInstance(document.getElementById('productModal')).hide();">Add to Cart</button>
                         </div>
                     </div>
-                </div>
-            `;
+                </div>`;
             new bootstrap.Modal(document.getElementById('productModal')).show();
         }
 
@@ -335,8 +316,8 @@
             let total = 0;
             document.getElementById('cartContent').innerHTML = cart.map((item, i) => {
                 total += item.price;
-                return `<div class="d-flex align-items-center gap-3 mb-3 p-3 bg-light rounded-4">
-                    <img src="${item.img}" style="width:50px; height:50px; object-fit:cover;" class="rounded-circle border">
+                return `<div class="d-flex align-items-center gap-3 mb-3 p-2 bg-light rounded-4">
+                    <img src="${item.img}" style="width:40px; height:40px; object-fit:cover;" class="rounded-circle">
                     <div class="flex-grow-1 small fw-bold">${item.name}</div>
                     <i class="bi bi-trash3 text-danger" onclick="cart.splice(${i},1);updateUI()"></i>
                 </div>`;
@@ -346,20 +327,21 @@
 
         function checkout() {
             const n = document.getElementById('custName').value, ph = document.getElementById('custPhone').value;
-            if(!n || !ph || cart.length === 0) return alert("Fill details!");
+            if(!n || !ph || cart.length === 0) return alert("Please fill details!");
             window.open(`https://wa.me/201110804209?text=Order From: ${n}%0APhone: ${ph}%0ATotal: ${document.getElementById('cartTotal').innerText}`);
         }
 
         window.onload = () => { fetchWeather(); renderItems(); }
-        
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                const nav = document.getElementById('mainNav');
-                if(nav.classList.contains('show')) {
-                    new bootstrap.Collapse(nav).hide();
-                }
-            });
-        });
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

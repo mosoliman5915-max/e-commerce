@@ -17,20 +17,17 @@
     <style>
         :root { --accent: #059669; --dark: #064e3b; --light: #f0fdf4; }
         
-        /* تحسين سلاسة الحركة */
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         html, body { max-width: 100%; overflow-x: hidden; margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: var(--light); color: var(--dark); scroll-behavior: smooth; }
 
         .navbar { background: rgba(255,255,255,0.9) !important; backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 1040; padding: 10px 0; }
         .navbar-brand img { height: 80px; width: auto; transition: 0.3s; }
-        
         .nav-link { color: #64748b !important; font-weight: 600; font-size: 0.9rem; padding: 10px 15px !important; transition: 0.3s; }
 
         #home { 
             min-height: 100vh; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
             background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("post 11'.png");
             background-size: cover; background-position: center; color: white; text-align: center; width: 100%;
-            /* تحسين سرعة ظهور الخلفية */
             background-color: #031a14;
         }
 
@@ -45,48 +42,58 @@
 
         .product-card { background: #fff; border-radius: 35px; overflow: hidden; transition: 0.4s ease; height: 100%; cursor: pointer; position: relative; border: 1px solid transparent; }
         .product-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); border-color: var(--accent); }
-        .card-img-wrapper { height: 280px; overflow: hidden; background: #eee; }
+        
+        .card-img-wrapper { position: relative; height: 280px; overflow: hidden; background: #eee; }
         .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-
-        /* Cart & Panels */
-        .cart-panel { position: fixed; top: 0; right: -100%; width: 420px; height: 100vh; background: #fff; z-index: 2050; transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); padding: 30px; display: flex; flex-direction: column; }
-        .cart-panel.open { right: 0; box-shadow: -15px 0 60px rgba(0,0,0,0.15); }
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 2040; display: none; }
-
-
-   
-        @media (min-width: 768px) {
-            .product-modal .modal-dialog { max-width: 800px; }
-            .modal-flex-wrapper { display: flex; }
-            .modal-img-container { width: 50%; height: auto; min-height: 450px; }
-            .modal-info-container { width: 50%; display: flex; flex-direction: column; justify-content: center; }
+        
+        .view-details-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(6, 78, 59, 0.4); display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: 0.3s ease;
         }
+        .view-details-btn {
+            background: #fff; color: var(--dark); padding: 10px 20px; border-radius: 50px;
+            font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .product-card:hover .view-details-overlay { opacity: 1; }
+        .product-card:hover .card-img-wrapper img { transform: scale(1.1); }
+
+        @media (max-width: 768px) {
+            .view-details-overlay { opacity: 1; background: transparent; align-items: flex-end; padding-bottom: 15px; }
+            .view-details-btn { font-size: 0.7rem; padding: 6px 12px; background: rgba(255,255,255,0.9); }
+        }
+
+        /* Modal Enhancements */
+        .modal-content { border-radius: 40px; border: none; overflow: hidden; }
+        .modal-img-container { height: 400px; background: #f8f8f8; }
+        .modal-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        
+        @media (min-width: 768px) {
+            .modal-dialog { max-width: 850px; }
+            .modal-flex-wrapper { display: flex; flex-direction: row; }
+            .modal-img-container { width: 50%; height: 500px; }
+            .modal-info-container { width: 50%; padding: 50px !important; display: flex; flex-direction: column; justify-content: center; }
+        }
+        @media (max-width: 767px) {
+            .modal-img-container { height: 300px; }
+            .modal-info-container { padding: 30px !important; }
+        }
+
+        /* Improved About Section */
+        .about-feature { padding: 20px; border-radius: 20px; background: #f8fdfa; border-left: 4px solid var(--accent); margin-bottom: 20px; }
+        .about-img-stack { position: relative; padding: 20px; }
+        .about-img-main { border-radius: 40px; width: 90%; position: relative; z-index: 2; box-shadow: 20px 20px 60px rgba(0,0,0,0.1); }
+        .about-img-sub { position: absolute; bottom: -10px; right: 0; width: 60%; border-radius: 30px; border: 8px solid #fff; z-index: 3; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
 
         /* Cart Panel */
-        .cart-panel {
-            position: fixed; top: 0; right: -100%; width: 420px; height: 100vh;
-            background: #fff; z-index: 2050; transition: 0.6s cubic-bezier(0.7, 0, 0.3, 1);
-            padding: 30px; display: flex; flex-direction: column;
+        .cart-panel { 
+            position: fixed; top: 0; right: -100%; width: 420px; height: 100vh; 
+            background: #fff; z-index: 2050; transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); 
+            padding: 30px; display: flex; flex-direction: column; 
         }
         .cart-panel.open { right: 0; box-shadow: -15px 0 60px rgba(0,0,0,0.15); }
         .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 2040; display: none; }
-
-        /* Responsive Mobile Fixes */
-        @media (max-width: 991px) {
-            .navbar-brand img { height: 90px; width: 150; }
-            .navbar-collapse { 
-                background: white; margin-top: 15px; border-radius: 20px; padding: 20px; 
-                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            }
-            #tempVal { font-size: 0.8rem; display: block !important; }
-        }
-
-        @media (max-width: 700px) { 
-            .cart-panel { width: 100%; } 
-            .display-1 { font-size: 2.5rem !important; margin-top: 20px; } 
-            #footer img { height: 90px; width: 130px; }
-            .weather-badge { padding: 6px 15px; font-size: 0.8rem; }
-        }
 
         footer { background: #031a14; color: white; padding: 70px 0 40px; border-radius: 60px 60px 0 0; margin-top: 50px; }
         .social-link { 
@@ -97,7 +104,7 @@
         .social-link:hover { background: var(--accent); transform: translateY(-5px); }
         #footer img { filter: brightness(0) invert(1); height: 80px; }
 
-
+        .serif { font-family: 'Playfair Display', serif; }
     </style>
 </head>
 <body>
@@ -161,13 +168,30 @@
     <section id="about" class="py-5 bg-white overflow-hidden">
         <div class="container py-5">
             <div class="row align-items-center">
-                <div class="col-lg-6" data-aos="fade-right">
-                    <img src="Extra post 3 (1).png" class="img-fluid rounded-5 shadow-lg" loading="lazy">
+                <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+                    <div class="about-img-stack">
+                        <img src="product 11.jfif" class="about-img-main" alt="Botanical Lab">
+                        <img src="Extra post 3 (1).png" class="about-img-sub" alt="Lab Process">
+                    </div>
                 </div>
                 <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
-                    <span class="text-success fw-bold text-uppercase mb-3 d-block">The Genesis</span>
-                    <h2 class="serif display-4 fw-bold mb-4">Refined by Science.</h2>
-                    <p class="text-muted fs-5 mb-4">We merge organic botanicals with breakthroughs to honor your skin.</p>
+                    <span class="text-success fw-bold text-uppercase mb-3 d-block" style="letter-spacing: 2px;">The Philosophy</span>
+                    <h2 class="serif display-4 fw-bold mb-4">Crafting the Future of <span class="text-success">Organic Beauty.</span></h2>
+                    <p class="text-muted fs-5 mb-4">At VEGANCE, we don't just make skincare; we engineer botanical miracles. Born in the heart of the botanical lab, our mission is to merge the raw power of earth with the precision of modern science.</p>
+                    
+                    <div class="about-feature">
+                        <h5 class="fw-bold mb-2"><i class="bi bi-shield-check me-2"></i> 100% Pure Extracts</h5>
+                        <p class="small text-muted mb-0">Every drop is cold-pressed to preserve the vital enzymes and nutrients your skin craves.</p>
+                    </div>
+
+                    <div class="about-feature">
+                        <h5 class="fw-bold mb-2"><i class="bi bi-flask me-2"></i> Lab-Proven Results</h5>
+                        <p class="small text-muted mb-0">Our formulas are tested to ensure they don't just feel good, but actively transform your skin's health.</p>
+                    </div>
+
+                    <p class="fst-italic border-start border-4 border-success ps-3 py-2 mt-4">
+                        "We believe that luxury should be clean, and science should be green."
+                    </p>
                 </div>
             </div>
         </div>
@@ -189,20 +213,18 @@
         </div>
     </div>
 
-    <div class="modal fade product-modal" id="productModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" id="modalData"></div>
         </div>
     </div>
-
-    
 
     <footer id="footer">
         <div class="container text-center">
             <img src="IMG_0853.PNG" class="mb-4">
             <div class="d-flex justify-content-center mb-5">
                 <a href="https://instagram.com/vegance.store" class="social-link"><i class="bi bi-instagram"></i></a>
-                <a href="https://www.linkedin.com/in/mohamed-hassan-972556388?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-link"><i class="bi bi-linkedin"></i></a>
+                <a href="https://www.linkedin.com/in/mohamed-hassan-972556388" class="social-link"><i class="bi bi-linkedin"></i></a>
                 <a href="https://github.com/mosoliman5915-max" class="social-link"><i class="bi bi-github"></i></a>
                 <a href="https://wa.me/201110804209" class="social-link"><i class="bi bi-whatsapp"></i></a>
             </div>
@@ -217,17 +239,13 @@
     <script>
         AOS.init({ duration: 800, once: true });
 
-        // Optimize Weather Fetch with Timeout
         async function fetchWeather() {
-            const controller = new AbortController();
-            const id = setTimeout(() => controller.abort(), 5000);
             try {
-                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=30.04&longitude=31.23&current_weather=true', { signal: controller.signal });
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=30.04&longitude=31.23&current_weather=true');
                 const data = await res.json();
                 const temp = Math.round(data.current_weather.temperature);
                 document.getElementById('tempVal').innerText = `${temp}°C`;
                 document.getElementById('weatherAdvice').innerText = temp > 25 ? "Warm day! Hydrate with our Mist." : "Cool breeze! Protect with our Serums.";
-                clearTimeout(id);
             } catch (e) { 
                 document.getElementById('tempVal').innerText = "22°C";
                 document.getElementById('weatherAdvice').innerText = "Pure Nature. Pure You."; 
@@ -235,16 +253,16 @@
         }
 
         const products = [
-            { id: 1, cat: "Face", name: "Elixir Gold Cleaner", price: 450, img: "product 1.jfif", desc: "Our signature gold cleaner." },
-            { id: 2, cat: "Face", name: "Aqua-Night Cleaner", price: 520, img: "product 2.jfif", desc: "Night ritual for sensitive skin." },
-            { id: 3, cat: "Face", name: "Root Revival Cleaner", price: 380, img: "product 3.jfif", desc: "Revive skin from roots." },
-            { id: 4, cat: "Face", name: "Botanical Toner", price: 290, img: "product 4.jfif", desc: "Balancing and refreshing." },
-            { id: 7, cat: "serums", name: "Elixir Gold Serum", price: 450, img: "product 7.jfif", desc: "Pure oil blend." },
-            { id: 8, cat: "serums", name: "Youth Serum", price: 130, img: "product 8.jfif", desc: "Light and powerful." },
-            { id: 11, cat: "serums", name: "Mega Serum Lab", price: 2800, img: "product 11.jfif", desc: "Lab-grade mega serum." },
-            { id: 12, cat: "Body", name: "Body Glow Oil", price: 420, img: "product 12.jfif", desc: "Non-greasy body oil." },
-            { id: 14, cat: "Body", name: "Pure Scrub", price: 150, img: "product 14.jfif", desc: "Botanical seed scrub." },
-            { id: 15, cat: "serums", name: "eye contour serum", price: 150, img: "product 15.jfif", desc: "Botanical seed scrub." },
+            { id: 1, cat: "Face", name: "Elixir Gold Cleaner", price: 450, img: "product 1.jfif", desc: "Our signature gold cleaner formulated with botanical extracts to deeply cleanse and illuminate your skin." },
+            { id: 2, cat: "Face", name: "Aqua-Night Cleaner", price: 520, img: "product 2.jfif", desc: "A soothing night ritual for sensitive skin, designed to remove impurities while you sleep." },
+            { id: 3, cat: "Face", name: "Root Revival Cleaner", price: 380, img: "product 3.jfif", desc: "Revive tired skin from the roots with this nutrient-rich daily botanical cleanser." },
+            { id: 4, cat: "Face", name: "Botanical Toner", price: 290, img: "product 4.jfif", desc: "A balancing and refreshing toner that preps your skin for maximum absorption of nutrients." },
+            { id: 7, cat: "serums", name: "Elixir Gold Serum", price: 450, img: "product 7.jfif", desc: "A concentrated oil blend that provides intense hydration and a natural golden glow." },
+            { id: 8, cat: "serums", name: "Youth Serum", price: 130, img: "product 8.jfif", desc: "Lightweight and powerful formula designed to target fine lines and improve skin elasticity." },
+            { id: 11, cat: "serums", name: "Mega Serum Lab", price: 2800, img: "product 11.jfif", desc: "Our most advanced lab-grade serum for total skin transformation and repair." },
+            { id: 12, cat: "Body", name: "Body Glow Oil", price: 420, img: "product 12.jfif", desc: "Luxury body oil that absorbs quickly to leave your skin feeling silky and radiant." },
+            { id: 14, cat: "Body", name: "Pure Scrub", price: 150, img: "product 14.jfif", desc: "Natural botanical seed scrub to exfoliate and smooth your body’s skin surface." },
+            { id: 15, cat: "serums", name: "Eye Contour Serum", price: 150, img: "product 15.jfif", desc: "Targeted treatment to reduce puffiness and dark circles around the delicate eye area." },
         ];
 
         let swiper;
@@ -256,6 +274,9 @@
                     <div class="product-card" onclick="openProduct(${p.id})">
                         <div class="card-img-wrapper">
                             <img src="${p.img}" loading="lazy" alt="${p.name}">
+                            <div class="view-details-overlay">
+                                <div class="view-details-btn">View Details</div>
+                            </div>
                         </div>
                         <div class="p-4 text-center">
                             <h6 class="fw-bold mb-1">${p.name}</h6>
@@ -275,23 +296,30 @@
             });
         }
 
-        // ... بقية دوال الـ Cart والـ Checkout (نفس المنطق السابق) ...
         function openProduct(id) {
             const p = products.find(x => x.id === id);
+            const modalEl = document.getElementById('productModal');
             document.getElementById('modalData').innerHTML = `
                 <div class="modal-body p-0">
-                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" style="z-index:10"></button>
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" style="z-index:2000; background-color: white; padding: 10px; border-radius: 50%;"></button>
                     <div class="modal-flex-wrapper">
-                        <div class="modal-img-container"><img src="${p.img}"></div>
-                        <div class="modal-info-container p-4">
-                            <h3 class="serif fw-bold">${p.name}</h3>
-                            <p class="text-success fw-bold">EGP ${p.price}</p>
-                            <p class="text-muted small">${p.desc}</p>
-                            <button class="btn btn-dark w-100 py-3 rounded-pill" onclick="addToCart(${p.id}); bootstrap.Modal.getInstance(document.getElementById('productModal')).hide();">Add to Cart</button>
+                        <div class="modal-img-container">
+                            <img src="${p.img}" alt="${p.name}">
+                        </div>
+                        <div class="modal-info-container">
+                            <span class="badge bg-light text-success mb-2">${p.cat}</span>
+                            <h2 class="serif fw-bold mb-2">${p.name}</h2>
+                            <h4 class="text-success fw-bold mb-4">EGP ${p.price}</h4>
+                            <p class="text-muted mb-4">${p.desc}</p>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-dark flex-grow-1 py-3 rounded-pill fw-bold" onclick="addToCart(${p.id}); bootstrap.Modal.getInstance(document.getElementById('productModal')).hide();">
+                                    ADD TO BAG
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>`;
-            new bootstrap.Modal(document.getElementById('productModal')).show();
+            new bootstrap.Modal(modalEl).show();
         }
 
         function filterBy(c, b) {
@@ -318,9 +346,12 @@
             document.getElementById('cartContent').innerHTML = cart.map((item, i) => {
                 total += item.price;
                 return `<div class="d-flex align-items-center gap-3 mb-3 p-2 bg-light rounded-4">
-                    <img src="${item.img}" style="width:40px; height:40px; object-fit:cover;" class="rounded-circle">
-                    <div class="flex-grow-1 small fw-bold">${item.name}</div>
-                    <i class="bi bi-trash3 text-danger" onclick="cart.splice(${i},1);updateUI()"></i>
+                    <img src="${item.img}" style="width:50px; height:50px; object-fit:cover;" class="rounded-3">
+                    <div class="flex-grow-1">
+                        <div class="small fw-bold">${item.name}</div>
+                        <div class="text-success small fw-bold">EGP ${item.price}</div>
+                    </div>
+                    <i class="bi bi-trash3 text-danger cursor-pointer px-2" onclick="cart.splice(${i},1);updateUI()"></i>
                 </div>`;
             }).join('');
             document.getElementById('cartTotal').innerText = total;
@@ -329,20 +360,12 @@
         function checkout() {
             const n = document.getElementById('custName').value, ph = document.getElementById('custPhone').value;
             if(!n || !ph || cart.length === 0) return alert("Please fill details!");
-            window.open(`https://wa.me/201110804209?text=Order From: ${n}%0APhone: ${ph}%0ATotal: ${document.getElementById('cartTotal').innerText}`);
+            const items = cart.map(i => i.name).join(', ');
+            const text = `New Order from Vegance Lab:%0A%0AName: ${n}%0APhone: ${ph}%0AItems: ${items}%0ATotal: EGP ${document.getElementById('cartTotal').innerText}`;
+            window.open(`https://wa.me/201110804209?text=${text}`);
         }
 
         window.onload = () => { fetchWeather(); renderItems(); }
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
